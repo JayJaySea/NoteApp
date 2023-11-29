@@ -25,10 +25,10 @@ services:
       - DATABASE_URL=postgres://noteapp:s3cret@db/noteapp
       - JWT_SECRET=s3cret
 
-  frontend:
-    build: noteapp-frontend
-    depends_on:
-      - backend
+        # frontend:
+        #   build: noteapp-frontend
+        #   depends_on:
+        #     - backend
 
   swagger:
     image: swaggerapi/swagger-ui
@@ -49,5 +49,5 @@ services:
     depends_on:
       - adminer
       - backend
-      - frontend
+        # - frontend
       - swagger

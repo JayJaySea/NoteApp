@@ -6,8 +6,8 @@ RUN \
     --mount=type=cache,target=/usr/local/cargo/registry,sharing=locked\
         cargo install --path .
 
-FROM debian:bullseye-slim
-RUN apt-get update && apt-get install -y postgresql-client libc6
+FROM debian:bookworm-slim
+RUN apt-get update && apt-get update  && apt-get install -y postgresql-client libc6
 COPY --from=builder /usr/local/cargo/bin/noteapp-backend\
                             /usr/local/bin/noteapp-backend
 CMD ["noteapp-backend"]
