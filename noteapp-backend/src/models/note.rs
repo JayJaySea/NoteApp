@@ -21,7 +21,9 @@ impl Note {
             .fetch_one(pool)
             .await?;
 
+        println!("lo");
         Ok(note)
+
     }
 }
 

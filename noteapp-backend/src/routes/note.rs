@@ -3,9 +3,7 @@ use http::StatusCode;
 use serde::Deserialize;
 use sqlx::PgPool;
 use uuid::Uuid;
-
 use crate::models::note::Note;
-
 use super::error::ApiError;
 
 #[derive(Deserialize, Debug)]
@@ -14,16 +12,13 @@ pub(super) struct NewNote {
     pub contents: String,
 }
 
-
 pub(super) async fn create_note(
     Extension(pool): Extension<PgPool>,
     Json(new_note): Json<NewNote>
 ) -> Result<(StatusCode, Json<Note>), ApiError> {
-    println!("New note: {:?}", new_note);
-    let note = Note::from(new_note)
-        .insert(&pool).await
-        .map_err(map_db_err)?;
 
+    let note = Note::from(new_note)
+        .insert(&pool).await?;
 
     Ok((StatusCode::CREATED, Json(note)))
 }
@@ -37,10 +32,3 @@ impl From<NewNote> for Note {
         }
     }
 }
-
-fn map_db_err(e: sqlx::Error) -> ApiError { match e {
-    e => {
-        println!("{:?}", e);
-        ApiError::Generic(e.into())
-    }
-}}

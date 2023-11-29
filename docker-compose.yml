@@ -1,0 +1,53 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_USER=noteapp
+      - POSTGRES_PASSWORD=s3cret
+
+  adminer:
+    image: adminer
+    depends_on:
+      - db
+    environment:
+      - ADMINER_DEFAULT_SERVER=db
+      - ADMINER_DEFAULT_DB_DRIVER=pgsql
+      - ADMINER_DEFAULT_DB_NAME=postgres
+
+  backend:
+    build: noteapp-backend
+    depends_on:
+      - db
+    environment:
+      - RUST_LOG=debug
+      - DATABASE_URL=postgres://noteapp:s3cret@db/noteapp
+      - JWT_SECRET=s3cret
+
+  frontend:
+    build: noteapp-frontend
+    depends_on:
+      - backend
+
+  swagger:
+    image: swaggerapi/swagger-ui
+    depends_on:
+      - backend
+    volumes:
+      - ./backend.json:/etc/backend.json
+    environment:
+      - SWAGGER_JSON=/etc/backend.json
+      - BASE_URL=/swagger
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - adminer
+      - backend
+      - frontend
+      - swagger

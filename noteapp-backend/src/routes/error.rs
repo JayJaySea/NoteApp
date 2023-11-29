@@ -85,3 +85,11 @@ impl IntoResponse for ApiError {
         (status, body).into_response()
     }
 }
+
+impl From<sqlx::Error> for ApiError {
+    fn from(value: sqlx::Error) -> Self {
+        match value {
+            e => ApiError::Generic(e.into()),
+        }
+    }
+}
