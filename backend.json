@@ -17,17 +17,161 @@
   ],
   "tags": [
     {
-      "name": "auth",
-    },
-    {
-      "name": "profile",
+      "name": "user"
     },
     {
       "name": "note"
-    },
+    }
   ],
   "paths": {
+    "/note": {
+      "post": {
+        "tags": [
+          "note"
+        ],
+        "summary": "Adds a new note",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/note_create"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "CREATED"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "note"
+        ],
+        "summary": "Get note by id",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "UUID v4 of note object"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/note"
+                }
+              }
+            },
+            "description": "ok"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "note"
+        ],
+        "summary": "Delete note by id",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "UUID v4 of note object"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "NO CONTENT"
+          }
+        }
+      }
+    },
+    "/notes": {
+      "get": {
+        "tags": [
+          "note"
+        ],
+        "summary": "Lists all notes",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/note_array"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        }
+      }
+    }
   },
   "components": {
+    "schemas": {
+      "note_create": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "contents": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "label": "TODO",
+          "contents": "Go touch grass"
+        }
+      },
+      "note": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "contents": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "id": "73c642bc-8cba-40db-a970-16045d617f19",
+          "label": "TODO",
+          "contents": "Go touch grass"
+        }
+      },
+      "note_array": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/note"
+        },
+        "example": [
+          {
+            "id": "73c642bc-8cba-40db-a970-16045d617f19",
+            "label": "TODO",
+            "contents": "Go touch grass"
+          },
+          {
+            "id": "2095f415-a22b-4ac8-bbde-ce238059e353",
+            "label": "Today's groceries",
+            "contents": "Apple, banana, and milk"
+          }
+        ]
+      }
+    }
   }
 }
