@@ -31,7 +31,7 @@ pub fn note_routes() -> Router {
 pub fn user_routes() -> Router {
     Router::new()
         .route("/register",  post(user::create))
-        .route("/user",  get(user::read))
-        .route("/user",  put(user::update))
-        .route("/user",  delete(user::delete))
+        .route("/user",      get(user::read))
+        .route("/user",      put(user::update))
+        .route("/user",      delete(user::delete))
 }

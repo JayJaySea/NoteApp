@@ -1,3 +1,5 @@
+use argon2::Argon2;
+use password_hash::SaltString;
 use serde::{Serialize, Deserialize};
 use sqlx::{self, PgPool, FromRow};
 use uuid::Uuid;
@@ -75,4 +77,5 @@ impl User {
 
         Ok(())
     }
+
 }
