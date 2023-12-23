@@ -34,3 +34,7 @@ tracing = "0.1.37"
 tracing-appender = "0.2.2"
 tracing-subscriber = { version = "0.3.17", features = ["env-filter"] }
 uuid = { version = "1.3.2", features = ["v4", "serde"] }
+
+[profile.release-with-debug]
+inherits = "release"
+debug = true

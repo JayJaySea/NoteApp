@@ -32,6 +32,15 @@ pub(super) async fn read(
     Ok((StatusCode::OK, Json(note)))
 }
 
+pub(super) async fn update(
+    Extension(pool): Extension<PgPool>,
+    Json(note): Json<Note>
+) -> Result<StatusCode, ApiError> {
+    note.update(&pool).await?;
+
+    Ok(StatusCode::NO_CONTENT)
+}
+
 pub(super) async fn delete(
     Extension(pool): Extension<PgPool>,
     Query(AnyId{id}): Query<AnyId>

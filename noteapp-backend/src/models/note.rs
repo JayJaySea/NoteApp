@@ -1,8 +1,8 @@
-use serde::Serialize;
+use serde::{Serialize, Deserialize};
 use sqlx::{self, PgPool, FromRow};
 use uuid::Uuid;
 
-#[derive(FromRow, Serialize)]
+#[derive(FromRow, Serialize, Deserialize, Debug)]
 pub struct Note {
     pub id: Uuid,
     pub label: Option<String>,
@@ -46,6 +46,21 @@ impl Note {
             .await?;
 
         Ok(note)
+    }
+
+    pub async fn update(self, pool: &PgPool) 
+    -> Result<(), sqlx::Error> {
+        sqlx::query(
+            "UPDATE notes SET label = $1, contents = $2 
+             WHERE id = $3"
+            )
+            .bind(self.label)
+            .bind(self.contents)
+            .bind(self.id)
+            .execute(pool)
+            .await?;
+
+        Ok(())
     }
 
     pub async fn delete(id: Uuid, pool: &PgPool) 

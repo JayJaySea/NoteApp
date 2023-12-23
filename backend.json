@@ -41,6 +41,13 @@
         },
         "responses": {
           "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/note"
+                }
+              }
+            },
             "description": "CREATED"
           }
         }
@@ -71,6 +78,26 @@
               }
             },
             "description": "ok"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "note"
+        ],
+        "summary": "Update note",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/note"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "NO_CONTENT"
           }
         }
       },
@@ -116,6 +143,108 @@
           }
         }
       }
+    },
+    "/register": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Adds a new user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/user_create"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/user"
+                }
+              }
+            },
+            "description": "CREATED"
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get user by id",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "UUID v4 of note object"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/user"
+                }
+              }
+            },
+            "description": "ok"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Update user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/user_create"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "NO_CONTENT"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Delete user by id",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "UUID v4 of user object"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "NO CONTENT"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -149,7 +278,7 @@
           }
         },
         "example": {
-          "id": "73c642bc-8cba-40db-a970-16045d617f19",
+          "id": "00000000-0000-0000-0000-000000000000",
           "label": "TODO",
           "contents": "Go touch grass"
         }
@@ -161,16 +290,58 @@
         },
         "example": [
           {
-            "id": "73c642bc-8cba-40db-a970-16045d617f19",
+            "id": "00000000-0000-0000-0000-000000000001",
             "label": "TODO",
             "contents": "Go touch grass"
           },
           {
-            "id": "2095f415-a22b-4ac8-bbde-ce238059e353",
+            "id": "00000000-0000-0000-0000-000000000000",
             "label": "Today's groceries",
             "contents": "Apple, banana, and milk"
           }
         ]
+      },
+      "user": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "email": "example@example.com",
+          "username": "example"
+        }
+      },
+      "user_create": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "email": "example@example.com",
+          "username": "example",
+          "password": "Example123!"
+        }
       }
     }
   }
