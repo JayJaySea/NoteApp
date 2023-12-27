@@ -1,5 +1,5 @@
 use argon2::Argon2;
-use password_hash::SaltString;
+use password_hash::{SaltString, PasswordHash, PasswordVerifier};
 use serde::{Serialize, Deserialize};
 use sqlx::{self, PgPool, FromRow};
 use uuid::Uuid;
@@ -9,6 +9,13 @@ pub struct UserProfile {
     pub id: Uuid,
     pub email: String,
     pub username: String
+}
+
+#[derive(FromRow, Serialize, Deserialize, Debug)]
+pub struct Credentials {
+    pub id: Uuid,
+    pub email: String,
+    pub password: String,
 }
 
 impl UserProfile {
@@ -76,6 +83,18 @@ impl User {
             .await?;
 
         Ok(())
+    }
+
+    pub async fn select_credentials(email: &str, pool: &PgPool) 
+    -> Result<Credentials, sqlx::Error> {
+        let credentials: Credentials = sqlx::query_as(
+            "SELECT id, email, password FROM users WHERE email = $1"
+            )
+            .bind(email)
+            .fetch_one(pool)
+            .await?;
+
+        Ok(credentials)
     }
 
 }

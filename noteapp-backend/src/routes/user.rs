@@ -1,17 +1,17 @@
-use argon2::Argon2;
-use axum::{Json, Extension, extract::Query};
-use http::StatusCode;
-use password_hash::{SaltString, PasswordHasher};
-use rand_core::OsRng;
-use serde::Deserialize;
+use axum::{Json, Extension, extract::Query, response::{Response, IntoResponse}};
+use axum_extra::extract::CookieJar;
+use http::{StatusCode, header, Request, HeaderMap};
+use hyper::Body;
+use serde::{Deserialize, Serialize};
+use serde_json::json;
 use sqlx::PgPool;
 use uuid::Uuid;
-use crate::models::user::{User, UserProfile};
+use crate::{models::user::{User, UserProfile, Credentials}, auth::{hash_password, authenticate, generate_token, generate_auth_cookie, extract_token, decode_token}};
 
 use super::{error::ApiError, AnyId};
 
 #[derive(Deserialize, Debug)]
-pub(super) struct NewUser {
+pub(super) struct UserRequest {
     pub email: String,
     pub username: String,
     pub password: String,
@@ -19,7 +19,7 @@ pub(super) struct NewUser {
 
 pub(super) async fn create(
     Extension(pool): Extension<PgPool>,
-    Json(new_user): Json<NewUser>
+    Json(new_user): Json<UserRequest>
 ) -> Result<(StatusCode, Json<UserProfile>), ApiError> {
     let user = User::try_from(new_user)?
         .insert(&pool).await?;
@@ -28,18 +28,29 @@ pub(super) async fn create(
 }
 
 pub(super) async fn read(
-    Extension(pool): Extension<PgPool>,
-    Query(AnyId{id}): Query<AnyId>
+    cookie_jar: CookieJar,
+    headers: HeaderMap,
+    Extension(pool): Extension<PgPool>
 ) -> Result<(StatusCode, Json<UserProfile>), ApiError> {
-    let user = UserProfile::select(id, &pool).await?;
+    let token = extract_token(cookie_jar, &headers)?;
+    let claims = decode_token(&token)?;
+
+    let user = UserProfile::select(claims.sub, &pool).await?;
 
     Ok((StatusCode::OK, Json(user)))
 }
 
 pub(super) async fn update(
+    cookie_jar: CookieJar,
+    headers: HeaderMap,
     Extension(pool): Extension<PgPool>,
-    Json(mut user): Json<User>
+    Json(user): Json<UserRequest>
 ) -> Result<StatusCode, ApiError> {
+    let token = extract_token(cookie_jar, &headers)?;
+    let claims = decode_token(&token)?;
+    let mut user = User::try_from(user)?;
+
+    user.id = claims.sub;
     user.password = hash_password(&user.password)?;
     user.update(&pool).await?;
 
@@ -47,18 +58,45 @@ pub(super) async fn update(
 }
 
 pub(super) async fn delete(
-    Extension(pool): Extension<PgPool>,
-    Query(AnyId{id}): Query<AnyId>
+    cookie_jar: CookieJar,
+    headers: HeaderMap,
+    Extension(pool): Extension<PgPool>
 ) -> Result<StatusCode, ApiError> {
-    User::delete(id, &pool).await?;
+    let token = extract_token(cookie_jar, &headers)?;
+    let claims = decode_token(&token)?;
+
+    User::delete(claims.sub, &pool).await?;
 
     Ok(StatusCode::NO_CONTENT)
 }
 
+pub (super) async fn login(
+    Extension(pool): Extension<PgPool>,
+    Query(Credentials{id, email, password}): Query<Credentials>
+) -> Result<impl IntoResponse, ApiError> {
+    let hash = hash_password(&password)?;
+    let credentials = User::select_credentials(&email, &pool).await?;
+    
+    if authenticate(&credentials.password, &hash).await? {
+        let token = generate_token(id);
+        let cookie = generate_auth_cookie(&token);
 
-impl TryFrom<NewUser> for User {
+        let mut response = Response::new(json!({"status": "success", "token": token}).to_string());
+
+        response
+            .headers_mut()
+            .insert(header::SET_COOKIE, cookie.to_string().parse().unwrap());
+
+        return Ok(response);
+    }
+
+    return Err(ApiError::InvalidCredentials)
+}
+
+
+impl TryFrom<UserRequest> for User {
     type Error = ApiError;
-    fn try_from(value: NewUser) -> Result<Self, Self::Error> {
+    fn try_from(value: UserRequest) -> Result<Self, Self::Error> {
         let user = User {
             id: Uuid::new_v4(),
             email: value.email,
@@ -68,14 +106,4 @@ impl TryFrom<NewUser> for User {
 
         Ok(user)
     }
-}
-
-fn hash_password(password: &str) -> Result<String, ApiError> {
-    let salt = SaltString::generate(&mut OsRng);
-    let hash = Argon2::default()
-        .hash_password(password.as_bytes(), &salt)
-        .map_err(|e| ApiError::Unknown(e.to_string()))?
-        .to_string();
-
-    Ok(hash)
 }

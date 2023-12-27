@@ -5,6 +5,7 @@ use tower::ServiceBuilder;
 pub mod routes;
 pub mod models;
 pub mod init_db;
+pub mod auth;
 
 fn setup_endpoints() -> Router {
     Router::new()
