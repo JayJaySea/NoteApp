@@ -11,7 +11,7 @@ fn setup_endpoints() -> Router {
     Router::new()
         .merge(routes::user_routes())
         .merge(routes::note_routes())
-        // .merge(routes::static_routes())
+        .merge(routes::static_routes())
 }
 
 pub async fn setup_app() -> Router {

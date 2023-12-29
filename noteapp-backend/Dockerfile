@@ -11,4 +11,5 @@ FROM debian:bookworm-slim
 RUN apt-get update && apt-get update  && apt-get install -y postgresql-client libc6
 COPY --from=builder /usr/local/cargo/bin/noteapp-backend\
                             /usr/local/bin/noteapp-backend
+COPY dist /dist/
 CMD ["noteapp-backend"]

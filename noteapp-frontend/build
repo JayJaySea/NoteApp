@@ -2,3 +2,5 @@
 
 wasm-pack build --target web
 rollup ./main.js --format iife --file ./pkg/bundle.js
+rsync -a index.html ../noteapp-backend/dist/
+rsync -a pkg/bundle.js pkg/yew_wasm_pack_minimal_bg.wasm ../noteapp-backend/dist/pkg
