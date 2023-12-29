@@ -29,6 +29,11 @@
         "tags": [
           "note"
         ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "summary": "Adds a new note",
         "requestBody": {
           "content": {
@@ -52,38 +57,14 @@
           }
         }
       },
-      "get": {
-        "tags": [
-          "note"
-        ],
-        "summary": "Get note by id",
-        "parameters": [
-          {
-            "in": "query",
-            "name": "id",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "description": "UUID v4 of note object"
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/note"
-                }
-              }
-            },
-            "description": "ok"
-          }
-        }
-      },
       "put": {
         "tags": [
           "note"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
         ],
         "summary": "Update note",
         "requestBody": {
@@ -104,6 +85,11 @@
       "delete": {
         "tags": [
           "note"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
         ],
         "summary": "Delete note by id",
         "parameters": [
@@ -128,6 +114,11 @@
       "get": {
         "tags": [
           "note"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
         ],
         "summary": "Lists all notes",
         "responses": {
@@ -173,23 +164,46 @@
         }
       }
     },
+    "/login": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Log in as user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/user_login"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/token"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/user": {
       "get": {
         "tags": [
           "user"
         ],
-        "summary": "Get user by id",
-        "parameters": [
+        "security": [
           {
-            "in": "query",
-            "name": "id",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "description": "UUID v4 of note object"
+            "bearerAuth": []
           }
         ],
+        "summary": "Get current user profile",
         "responses": {
           "200": {
             "content": {
@@ -199,7 +213,7 @@
                 }
               }
             },
-            "description": "ok"
+            "description": "OK"
           }
         }
       },
@@ -207,12 +221,17 @@
         "tags": [
           "user"
         ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "summary": "Update user",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/user_create"
+                "$ref": "#/components/schemas/user_update"
               }
             }
           }
@@ -227,18 +246,12 @@
         "tags": [
           "user"
         ],
-        "summary": "Delete user by id",
-        "parameters": [
+        "security": [
           {
-            "in": "query",
-            "name": "id",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "description": "UUID v4 of user object"
+            "bearerAuth": []
           }
         ],
+        "summary": "Delete current user",
         "responses": {
           "204": {
             "description": "NO CONTENT"
@@ -248,22 +261,14 @@
     }
   },
   "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
     "schemas": {
-      "note_create": {
-        "type": "object",
-        "properties": {
-          "label": {
-            "type": "string"
-          },
-          "contents": {
-            "type": "string"
-          }
-        },
-        "example": {
-          "label": "TODO",
-          "contents": "Go touch grass"
-        }
-      },
       "note": {
         "type": "object",
         "properties": {
@@ -279,6 +284,21 @@
         },
         "example": {
           "id": "00000000-0000-0000-0000-000000000000",
+          "label": "TODO",
+          "contents": "Go touch grass"
+        }
+      },
+      "note_create": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "contents": {
+            "type": "string"
+          }
+        },
+        "example": {
           "label": "TODO",
           "contents": "Go touch grass"
         }
@@ -320,12 +340,9 @@
           "username": "example"
         }
       },
-      "user_create": {
+      "user_update": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
           "email": {
             "type": "string"
           },
@@ -337,10 +354,58 @@
           }
         },
         "example": {
-          "id": "00000000-0000-0000-0000-000000000000",
           "email": "example@example.com",
           "username": "example",
           "password": "Example123!"
+        }
+      },
+      "user_create": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "email": "example@example.com",
+          "username": "example",
+          "password": "Example123!"
+        }
+      },
+      "user_login": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "email": "example@example.com",
+          "password": "Example123!"
+        }
+      },
+      "token": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "status": "success",
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
         }
       }
     }

@@ -10,6 +10,7 @@ use jwt::{Header, decode};
 use once_cell::sync::Lazy;
 use password_hash::{SaltString, PasswordHasher, PasswordHash, PasswordVerifier};
 use rand_core::OsRng;
+use tracing::info;
 use uuid::Uuid;
 use serde::{Serialize, Deserialize};
 
@@ -42,12 +43,12 @@ impl Keys {
     }
 }
 
-pub async fn authenticate(left: &str, right: &str) 
+pub async fn authenticate(password: &str, hash: &str) 
 -> Result<bool, ApiError> {
+    let hash = PasswordHash::new(hash).unwrap();
 
-    let right = PasswordHash::new(right).unwrap();
     let password_ok = Argon2::default()
-        .verify_password(left.as_bytes(), &right)
+        .verify_password(password.as_bytes(), &hash)
         .map(|_| true)
         .or_else(|e| match e {
             password_hash::Error::Password => Ok(false),

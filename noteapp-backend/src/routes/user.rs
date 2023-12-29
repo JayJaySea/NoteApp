@@ -5,6 +5,7 @@ use hyper::Body;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 use sqlx::PgPool;
+use tracing::info;
 use uuid::Uuid;
 use crate::{models::user::{User, UserProfile, Credentials}, auth::{hash_password, authenticate, generate_token, generate_auth_cookie, extract_token, decode_token}};
 
@@ -14,6 +15,12 @@ use super::{error::ApiError, AnyId};
 pub(super) struct UserRequest {
     pub email: String,
     pub username: String,
+    pub password: String,
+}
+
+#[derive(Deserialize, Debug)]
+pub(super) struct LoginRequest {
+    pub email: String,
     pub password: String,
 }
 
@@ -72,13 +79,12 @@ pub(super) async fn delete(
 
 pub (super) async fn login(
     Extension(pool): Extension<PgPool>,
-    Query(Credentials{id, email, password}): Query<Credentials>
+    Json(LoginRequest{email, password}): Json<LoginRequest>
 ) -> Result<impl IntoResponse, ApiError> {
-    let hash = hash_password(&password)?;
     let credentials = User::select_credentials(&email, &pool).await?;
     
-    if authenticate(&credentials.password, &hash).await? {
-        let token = generate_token(id);
+    if authenticate(&password, &credentials.password).await? {
+        let token = generate_token(credentials.id);
         let cookie = generate_auth_cookie(&token);
 
         let mut response = Response::new(json!({"status": "success", "token": token}).to_string());
