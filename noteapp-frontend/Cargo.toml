@@ -1,21 +1,23 @@
 [package]
-authors = [
-    "Kelly Thomas Kline <kellytk@sw-e.org>",
-    "Samuel Rounce <me@samuelrounce.co.uk>"
-]
-categories = ["gui", "wasm", "web-programming"]
-description = "yew-wasm-pack-minimal demonstrates the minimum code and tooling necessary for a frontend web app with simple deployable artifacts consisting of one HTML file, one JavaScript file, and one WebAssembly file, using Yew, wasm-bindgen, and wasm-pack."
-edition = "2018"
-keywords = ["yew", "wasm", "wasm-bindgen", "web"]
-license = "MIT/Apache-2.0"
-name = "yew-wasm-pack-minimal"
-readme = "README.md"
-repository = "https://github.com/yewstack/yew-wasm-pack-minimal"
+name = "noteapp-frontend"
 version = "0.1.0"
+edition = "2021"
 
-[lib]
-crate-type = ["cdylib"]
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-wasm-bindgen = "^0.2"
-yew = "0.17"
+chrono = { version = "0.4.31", features = ["serde"] }
+gloo = "0.11.0"
+material-yew = { version = "0.3.0", features = ["full"] }
+reqwasm = "0.5.0"
+serde = { version = "1.0.193", features = ["derive"] }
+serde_json = "1.0.108"
+uuid = { version = "1.6.1", features = ["wasm-bindgen", "serde", "v4"] }
+validator = { version = "0.16.1", features = ["derive"] }
+wasm-bindgen = "0.2.89"
+wasm-bindgen-futures = "0.4.39"
+wasm-logger = "0.2.0"
+web-sys = { version = "0.3.66", features = ["HtmlInputElement", "Window"] }
+yew = { version = "0.20.0", features = ["csr"] }
+yew-router = "0.17.0"
+yewdux = "0.9.0"
