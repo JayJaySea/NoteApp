@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
-#[derive(Debug, Serialize, Deserialize, Default, Clone)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, PartialEq)]
 pub struct User {
     pub id: Uuid,
     pub email: String,
@@ -45,6 +45,12 @@ pub struct CreateNote {
 pub struct UpdateNote {
     pub label: String,
     pub contents: String,
+}
+
+#[derive(Debug, Serialize, Deserialize, Default, Clone)]
+pub struct Token {
+    pub status: String,
+    pub token: String,
 }
 
 #[derive(Debug, Serialize, Deserialize, Default, Clone)]

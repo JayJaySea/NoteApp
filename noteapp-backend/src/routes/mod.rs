@@ -1,3 +1,5 @@
+use std::{path::PathBuf, fs};
+
 use axum::{
     routing::{
         post,
@@ -45,11 +47,32 @@ pub fn static_routes() -> Router {
     Router::new()
         .fallback_service(get(|req| async move {
             match ServeDir::new("/dist").oneshot(req).await {
-                Ok(res) => res.map(boxed),
+                Ok(res) => {
+                    let status = res.status();
+                    match status {
+                        StatusCode::NOT_FOUND => {
+                            let index_path = PathBuf::from("/dist").join("index.html");
+                            let index_content = match fs::read_to_string(index_path) {
+                                Err(_) => {
+                                    return Response::builder()
+                                        .status(StatusCode::NOT_FOUND)
+                                        .body(boxed(Body::from("index file not found")))
+                                        .unwrap()
+                                }
+                                Ok(index_content) => index_content,
+                            };
+    
+                            Response::builder()
+                                .status(StatusCode::OK)
+                                .body(boxed(Body::from(index_content)))
+                                .unwrap()
+                        }
+                        _ => res.map(boxed),
+                    }
+                }
                 Err(err) => Response::builder()
                     .status(StatusCode::INTERNAL_SERVER_ERROR)
                     .body(boxed(Body::from(format!("error: {err}"))))
                     .expect("error response"),
-            }
-        }))
+        }}))
 }

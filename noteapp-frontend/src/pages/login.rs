@@ -1,58 +1,53 @@
 use material_yew::{text_inputs::{MatTextField, TextFieldType}, button::MatButton, tabs::{MatTabBar, MatTab}};
 use wasm_bindgen_futures::spawn_local;
 use yew::{prelude::*, html::Scope};
+use yew_router::hooks::use_navigator;
 
-use crate::api::{types::CreateUser, user::register_user};
+use crate::{api::{types::{CreateUser, LoginUser}, user::{register_user, login_user}}, components::button::MatLoginButton};
 
 
-pub struct RegisterPage {
-    form: RegisterFormData,
+pub struct LoginPage {
+    form: LoginFormData,
 }
 
 #[derive(Default, Clone)]
-struct RegisterFormData {
+struct LoginFormData {
     email: String,
-    username: String,
     password: String,
-    confirm_password: String
 }
 
 pub enum Msg {
     SubmitForm,
-    UpdateUsername(String),
     UpdateEmail(String),
     UpdatePassword(String),
-    UpdateConfirmPassword(String),
 }
 
-impl Component for RegisterPage {
+impl Component for LoginPage {
     type Message = Msg;
     type Properties = ();
 
     fn create(_: &Context<Self>) -> Self {
         Self {
-            form: RegisterFormData::default()
+            form: LoginFormData::default()
         }
     }
 
     fn update(&mut self, _: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             Msg::SubmitForm => {
-                if self.form.password != self.form.confirm_password {
-                    return false;
-                }
-
                 let cloned_form = self.form.clone();
                 spawn_local(async move {
-                    let _ = register_user(cloned_form.into()).await;
+                    let token = login_user(cloned_form.into()).await;
+
+                    // if let Ok(_) = token {
+
+                    // }
                 });
 
                 return true;
             }
-            Msg::UpdateUsername(value) => self.form.username = value,
             Msg::UpdateEmail(value) => self.form.email = value,
             Msg::UpdatePassword(value) => self.form.password = value,
-            Msg::UpdateConfirmPassword(value) => self.form.confirm_password = value,
         }
 
         false
@@ -61,33 +56,25 @@ impl Component for RegisterPage {
     fn view(&self, ctx: &Context<Self>) -> Html {
         html! {
             <div align="center" class="register-page">
-                <h2> {"Create new account"} </h2>
+                <h2> {"Log in to your account"} </h2>
                 <MatTextField 
                     field_type={TextFieldType::Email} 
                     label="Email" 
                     oninput={ctx.link().callback(|s: String| Msg::UpdateEmail(s))}/><br/>
                 <MatTextField 
-                    oninput={ctx.link().callback(|s: String| Msg::UpdateUsername(s))}
-                    label="Username" /><br/>
-                <MatTextField 
                     oninput={ctx.link().callback(|s: String| Msg::UpdatePassword(s))}
                     field_type={TextFieldType::Password} 
                     label="Password" /><br/>
-                <MatTextField 
-                    oninput={ctx.link().callback(|s: String| Msg::UpdateConfirmPassword(s))}
-                    field_type={TextFieldType::Password} 
-                    label="Confirm Password" /><br/>
-                <p onclick={ctx.link().callback(|_| Msg::SubmitForm)}><MatButton label="Register"/></p>
+                <MatLoginButton/>
             </div>
         }
     }
 }
 
-impl From<RegisterFormData> for CreateUser {
-    fn from(value: RegisterFormData) -> Self {
-        CreateUser {
+impl From<LoginFormData> for LoginUser {
+    fn from(value: LoginFormData) -> Self {
+        Self {
             email: value.email,
-            username: value.username,
             password: value.password
         }
     }
