@@ -97,6 +97,15 @@ pub fn generate_auth_cookie(token: &str) -> Cookie {
         .finish()
 }
 
+pub fn generate_bad_cookie(bad_token: &str) -> Cookie {
+    Cookie::build("token", bad_token)
+        .path("/")
+        .max_age(time::Duration::minutes(-60))
+        .same_site(SameSite::Lax)
+        .http_only(true)
+        .finish()
+}
+
 pub fn extract_token(cookie_jar: CookieJar, headers: &HeaderMap<HeaderValue>) -> Result<String, ApiError> {
     cookie_jar
         .get("token")

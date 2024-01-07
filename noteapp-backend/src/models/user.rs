@@ -60,13 +60,26 @@ impl User {
     pub async fn update(self, pool: &PgPool) 
     -> Result<(), sqlx::Error> {
         sqlx::query(
-            "UPDATE users SET email = $1, username = $2, password = $3 
-             WHERE id = $4"
+            "UPDATE users SET email = $1, username = $2
+             WHERE id = $3"
             )
             .bind(self.email)
             .bind(self.username)
-            .bind(self.password)
             .bind(self.id)
+            .execute(pool)
+            .await?;
+
+        Ok(())
+    }
+
+    pub async fn update_password(id: Uuid, new_pass: String, pool: &PgPool)
+    -> Result<(), sqlx::Error> {
+        sqlx::query(
+            "UPDATE users SET password = $1
+             WHERE id = $2"
+            )
+            .bind(new_pass)
+            .bind(id)
             .execute(pool)
             .await?;
 
@@ -97,4 +110,15 @@ impl User {
         Ok(credentials)
     }
 
+    pub async fn select_credentials_by_id(id: Uuid, pool: &PgPool) 
+    -> Result<Credentials, sqlx::Error> {
+        let credentials: Credentials = sqlx::query_as(
+            "SELECT id, email, password FROM users WHERE id = $1"
+            )
+            .bind(id)
+            .fetch_one(pool)
+            .await?;
+
+        Ok(credentials)
+    }
 }

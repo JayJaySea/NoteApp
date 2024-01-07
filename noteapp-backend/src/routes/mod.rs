@@ -36,11 +36,13 @@ pub fn note_routes() -> Router {
 
 pub fn user_routes() -> Router {
     Router::new()
-        .route("/api/register",  post(user::create))
-        .route("/api/user",      get(user::read))
-        .route("/api/user",      put(user::update))
-        .route("/api/user",      delete(user::delete))
-        .route("/api/login",     post(user::login))
+        .route("/api/user/register",    post(user::create))
+        .route("/api/user/login",       post(user::login))
+        .route("/api/user/logout",      post(user::logout))
+        .route("/api/user/password",    put(user::update_password))
+        .route("/api/user",             get(user::read))
+        .route("/api/user",             put(user::update))
+        .route("/api/user",             delete(user::delete))
 }
 
 pub fn static_routes() -> Router {

@@ -1,3 +1,4 @@
+use gloo::dialogs::alert;
 use material_yew::{text_inputs::{MatTextField, TextFieldType}, button::MatButton, tabs::{MatTabBar, MatTab}};
 use wasm_bindgen_futures::spawn_local;
 use yew::{prelude::*, html::Scope};
@@ -44,7 +45,11 @@ impl Component for RegisterPage {
 
                 let cloned_form = self.form.clone();
                 spawn_local(async move {
-                    let _ = register_user(cloned_form.into()).await;
+                    let response = register_user(cloned_form.into()).await;
+
+                    if response.is_err() {
+                        alert("Invalid user data, try again!");
+                    }
                 });
 
                 return true;

@@ -1,21 +1,16 @@
 use std::rc::Rc;
 
+use gloo::dialogs::alert;
 use material_yew::{text_inputs::{MatTextField, TextFieldType}, button::MatButton, tabs::{MatTabBar, MatTab}};
 use wasm_bindgen_futures::spawn_local;
 use yew::{prelude::*, html::Scope};
 use yewdux::{functional::use_store, dispatch::Dispatch};
 
-use crate::{api::{types::{CreateUser, LoginUser, User}, user::{register_user, login_user}}, components::button::MatLoginButton, State};
+use crate::{api::{types::{CreateUser, LoginUser, User, UpdatePassword}, user::{register_user, login_user, update_password}}, components::button::MatLoginButton, State};
 
 
 pub struct UpdatePasswordPage {
-    form: UpdatePasswordFormData,
-}
-
-#[derive(Default, Clone)]
-struct UpdatePasswordFormData {
-    current_password: String,
-    new_password: String,
+    form: UpdatePassword,
 }
 
 pub enum Msg {
@@ -30,7 +25,7 @@ impl Component for UpdatePasswordPage {
 
     fn create(_: &Context<Self>) -> Self {
         Self {
-            form: UpdatePasswordFormData::default(),
+            form: UpdatePassword::default(),
         }
     }
 
@@ -39,16 +34,17 @@ impl Component for UpdatePasswordPage {
             Msg::SubmitForm => {
                 let cloned_form = self.form.clone();
                 spawn_local(async move {
-                    // let token = login_user(cloned_form.into()).await;
+                    let response = update_password(cloned_form).await;
 
-                    // if let Ok(_) = token {
-
-                    // }
+                    if response.is_err() {
+                        alert(&"Incorrect password, try again");
+                        return;
+                    }
                 });
 
                 return true;
             }
-            Msg::UpdateCurrentPassword(value) => self.form.current_password = value,
+            Msg::UpdateCurrentPassword(value) => self.form.password = value,
             Msg::UpdateNewPassword(value) => self.form.new_password = value,
         }
 
@@ -60,10 +56,11 @@ impl Component for UpdatePasswordPage {
             <div align="center">
                 <h2> {"Update your password"} </h2>
                 <MatTextField 
-                    field_type={TextFieldType::Email} 
+                    field_type={TextFieldType::Password} 
                     label="Current Password" 
                     oninput={ctx.link().callback(|s: String| Msg::UpdateCurrentPassword(s))}/><br/>
                 <MatTextField 
+                    field_type={TextFieldType::Password} 
                     oninput={ctx.link().callback(|s: String| Msg::UpdateNewPassword(s))}
                     label="New Password" /><br/>
                 <p onclick={ctx.link().callback(|_| Msg::SubmitForm)}><MatButton label="Update Password"/></p>

@@ -1,12 +1,20 @@
+use wasm_bindgen_futures::spawn_local;
 use yew::prelude::*;
 use yew_router::prelude::*;
-use noteapp_frontend::{routes::{switch, Route}, components::navigator::{MatPreauthNavigatorTab, MatAuthNavigatorTab}, api::types::User, State};
+use noteapp_frontend::{routes::{switch, Route}, components::navigator::{MatPreauthNavigatorTab, MatAuthNavigatorTab}, api::{types::User, user::get_user}, State};
 use yewdux::prelude::*;
 
 
 #[function_component(App)]
 fn app() -> Html {
-    let (state, _) = use_store::<State>();
+    let (state, dispatch) = use_store::<State>();
+
+    spawn_local(async move {
+        let user = get_user().await;
+        if let Ok(user) = user {
+            dispatch.reduce_mut(|state| state.auth = Some(user));
+        }
+    });
 
     html! {
         <div>

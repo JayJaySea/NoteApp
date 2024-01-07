@@ -8,171 +8,43 @@
     <!-- <link rel="stylesheet" href="./index.css" /> -->
     <title> NoteApp </title>
   
-<link rel="preload" href="/noteapp-frontend-1bde04ac4f1886f0072caef4a803d36fd35b856e9cd03ebb19b0659cbe45bf030003da4cc718f182b6653c194b8e56ce_bg.wasm" as="fetch" type="application/wasm" crossorigin="anonymous" integrity="sha384-G94ErE8YhvAHLK70qAPTb9NbhW6c0D67GbBlnL5FvwMAA9pMxxjxgrZlPBlLjlbO">
-<link rel="modulepreload" href="/noteapp-frontend-1bde04ac4f1886f0072caef4a803d36fd35b856e9cd03ebb19b0659cbe45bf030003da4cc718f182b6653c194b8e56ce.js" crossorigin="anonymous" integrity="sha384-RLKG0Ell6dGZiy7ZFQlE-74lF2sBgAlulPUKoexJbBswnQFKTsyI4xOoW2OYow9V">
-<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-radio-list-item.js" crossorigin="anonymous" integrity="sha384-ee3I5pyRRfe7ApO1CGp8ri32ewsPfFjBxHDTB0IFXtjuHcMZZt7cIjfGQjClo2-Z">
-<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-drawer.js" crossorigin="anonymous" integrity="sha384-P6UtmLTM1yx0n2V2SDGZp6nPTs7MjAupxMzWGEup33c9dEFcPeR5DA5BIWGJSF_S">
-<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-top-app-bar-fixed.js" crossorigin="anonymous" integrity="sha384-GH_tMN6FDZzP_Ad0DG-EbBo8C4nqouZUJQOciCFGD8fhkqzDlJvoJLarIJYJWmor">
-<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-icon.js" crossorigin="anonymous" integrity="sha384-XXvdlRhvtgD5KXesg2ookh4WTIrMIPKPXqLRkiCyuqnWFffUEjO0U4fXIahbSfhY">
-<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-checkbox.js" crossorigin="anonymous" integrity="sha384-nK6zOz4PoYL7_jW0HEngo4Mit4tpNxug0IY-qZTs7AZjD6Wy3Aj8TO52ogxMtMoh">
-<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-tab-bar.js" crossorigin="anonymous" integrity="sha384-YZHaG6tWwOq_kjs9-bgikZuCrt9XlcfFcyhTtGOyV_iNcqkF5PhNVWByg7e4bfuv">
-<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-icon-button.js" crossorigin="anonymous" integrity="sha384-EuZogEUuiBDpcVBeLgk1oB-ewYsONAdDK8MGEylsMq3LMVZafv5QuEG8AEg3Y7Sz">
-<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-switch.js" crossorigin="anonymous" integrity="sha384-8nJHRwH9n0XpCd-J1N00iY4qFJfJ9dT9b1J62u2ZMVc4_Pgu8AXeBKKqKVX2EV2m">
-<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-menu.js" crossorigin="anonymous" integrity="sha384-xXqA78om3WLw9rSMjDvEpb-9XZGR-TiBm1QNT84zAQykdKUhwQTZv8PzW88R_EMt">
-<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-snackbar.js" crossorigin="anonymous" integrity="sha384-rVPTVc8vBFrTKSXwuA7kSKzgKhURn4j0qBc_Mvl1comAME3_03VR8WiX65RDbEWU">
-<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-dialog.js" crossorigin="anonymous" integrity="sha384-u8avFuNZgXG37Rimmi7MWf3F10baa7V5ug6rHudn4GntS7b7fDr84esQIi22X6Ph">
-<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-circular-progress-four-color.js" crossorigin="anonymous" integrity="sha384-9tfN4Qpgw7G7stkG2AaXP5qFj2aNaQbOD3fXGTjyABno1xvupQPZ0S30-uWPGNPI">
-<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-fab.js" crossorigin="anonymous" integrity="sha384-B7VWdNw-6y962PA8OVWDwHb7gz9UrYpgidlxoKTnZyd16Ro6112iETGD4rvXMz-n">
-<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-top-app-bar.js" crossorigin="anonymous" integrity="sha384-Wib_Y_8kv6QqH_T0GBssGm_l99KC2Q2iJn4ERLKkjsnkfmKk3pA_-3ltr_9J_7pD">
-<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-textarea.js" crossorigin="anonymous" integrity="sha384-_cLcX6vVnhY9-SDyOgdZhDT6ZgJS3XmR8jckfOJJ-o_39kqZIRmqaJCSQJHN4aXe">
-<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-button.js" crossorigin="anonymous" integrity="sha384-x7-sIls5ixyfMb5AdLM61p3dHA0BD6S8mXTFOaqeIP-DCnkMGjlQygr9haFJqX-A">
-<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-slider.js" crossorigin="anonymous" integrity="sha384-j3OTz3YH9Vr6JHmKustNGZvEMnY_jPSbvm-sC_rjN5s6dS7SoNRpJ_-La8KweWN6">
-<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-check-list-item.js" crossorigin="anonymous" integrity="sha384-BycUQfmKFVn4_tYAZh8p3v3IoiQGWCMdwVPSVm6z7WFT9Cy0GqL9Oufs_gC17Enx">
-<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-linear-progress.js" crossorigin="anonymous" integrity="sha384-2qeLk2keq0V5nvsx1cTM3WMKOTd_qKMswAVDMLm82MFDABthji9RvroR-F5ZUZfE">
-<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-list-item.js" crossorigin="anonymous" integrity="sha384-ik5mYlq3dNE4pI9EMANk8NdB0cADXCAL0dCkDisibxjiLRBWYU1j-9d2ItQM6gSO">
-<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-tab.js" crossorigin="anonymous" integrity="sha384-jVIN036SBeTGoTZBlGbys0dEquxjY7c9yO1XGbDBFKCFLoId2ryvrXvQqb0n-qZa">
-<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-circular-progress.js" crossorigin="anonymous" integrity="sha384-iFSFJQWhTTJvYFpf7SbE77MI_gE53UqWDotqiZYgFyu_H4JuSmCzV0fDvhPxNkLf">
+<link rel="preload" href="/noteapp-frontend-c3bd47bf1d421d5631df7e90cf792d95a551774520b86df6863f963f290cb22fcc3a3344af65de1113cf8fda51326aac_bg.wasm" as="fetch" type="application/wasm" crossorigin="anonymous" integrity="sha384-w71Hvx1CHVYx336Qz3ktlaVRd0UguG32hj-WPykMsi_MOjNEr2XeERPPj9pRMmqs">
+<link rel="modulepreload" href="/noteapp-frontend-c3bd47bf1d421d5631df7e90cf792d95a551774520b86df6863f963f290cb22fcc3a3344af65de1113cf8fda51326aac.js" crossorigin="anonymous" integrity="sha384-ZWbtyk-DiEHkXSdkk5CsZ3ipDEibtbbT59_-t-mbX0jz9k_HqLz6b8GnA8kTKjaX">
 <link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-select.js" crossorigin="anonymous" integrity="sha384-VVa5S-qRR9VEDR_JBavb7sT7wbd-bnP8XZ5p7SSFC038YsPj-CyWR_lQaiLaVNSF">
-<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-icon-button-toggle.js" crossorigin="anonymous" integrity="sha384-Sg-0_KkXM8ozy2vNBqzPAAID4UnfDwNheaWohwpuA77xk2tN__JeJLLGlxcLls8T">
-<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-radio.js" crossorigin="anonymous" integrity="sha384-j1EW0ikz3zMv9vY-0_PxXUag98faiIaQ0fSL4yomR0QQjuCyrGVXjTJsmJDVua6t">
+<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-menu.js" crossorigin="anonymous" integrity="sha384-xXqA78om3WLw9rSMjDvEpb-9XZGR-TiBm1QNT84zAQykdKUhwQTZv8PzW88R_EMt">
 <link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-textfield.js" crossorigin="anonymous" integrity="sha384-dKZ8gTi95zpWvRsGzDM4DaXvXjMv9rv67hXafAZNcNA_i8FyjQlLFOv76LG6-3-3">
-<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-list.js" crossorigin="anonymous" integrity="sha384-Fdnzc4_GefPIPXnIXxYfxcbySJxfVRziwbX5h2nsjPrMPiMDlGtarKG5CPaTik0o">
+<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-icon-button-toggle.js" crossorigin="anonymous" integrity="sha384-Sg-0_KkXM8ozy2vNBqzPAAID4UnfDwNheaWohwpuA77xk2tN__JeJLLGlxcLls8T">
+<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-radio-list-item.js" crossorigin="anonymous" integrity="sha384-ee3I5pyRRfe7ApO1CGp8ri32ewsPfFjBxHDTB0IFXtjuHcMZZt7cIjfGQjClo2-Z">
+<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-snackbar.js" crossorigin="anonymous" integrity="sha384-rVPTVc8vBFrTKSXwuA7kSKzgKhURn4j0qBc_Mvl1comAME3_03VR8WiX65RDbEWU">
+<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-switch.js" crossorigin="anonymous" integrity="sha384-8nJHRwH9n0XpCd-J1N00iY4qFJfJ9dT9b1J62u2ZMVc4_Pgu8AXeBKKqKVX2EV2m">
+<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-top-app-bar-fixed.js" crossorigin="anonymous" integrity="sha384-GH_tMN6FDZzP_Ad0DG-EbBo8C4nqouZUJQOciCFGD8fhkqzDlJvoJLarIJYJWmor">
+<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-tab-bar.js" crossorigin="anonymous" integrity="sha384-YZHaG6tWwOq_kjs9-bgikZuCrt9XlcfFcyhTtGOyV_iNcqkF5PhNVWByg7e4bfuv">
+<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/core.js" crossorigin="anonymous" integrity="sha384-RzxWAbiQsoAS4_6U-QNdGkuu1kX27lPhVi-Fsw_dlLktGBJNWBigikIH1kRWja9_">
+<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-slider.js" crossorigin="anonymous" integrity="sha384-j3OTz3YH9Vr6JHmKustNGZvEMnY_jPSbvm-sC_rjN5s6dS7SoNRpJ_-La8KweWN6">
+<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-list-item.js" crossorigin="anonymous" integrity="sha384-ik5mYlq3dNE4pI9EMANk8NdB0cADXCAL0dCkDisibxjiLRBWYU1j-9d2ItQM6gSO">
+<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-top-app-bar.js" crossorigin="anonymous" integrity="sha384-Wib_Y_8kv6QqH_T0GBssGm_l99KC2Q2iJn4ERLKkjsnkfmKk3pA_-3ltr_9J_7pD">
+<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-button.js" crossorigin="anonymous" integrity="sha384-x7-sIls5ixyfMb5AdLM61p3dHA0BD6S8mXTFOaqeIP-DCnkMGjlQygr9haFJqX-A">
+<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-dialog.js" crossorigin="anonymous" integrity="sha384-u8avFuNZgXG37Rimmi7MWf3F10baa7V5ug6rHudn4GntS7b7fDr84esQIi22X6Ph">
+<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-drawer.js" crossorigin="anonymous" integrity="sha384-P6UtmLTM1yx0n2V2SDGZp6nPTs7MjAupxMzWGEup33c9dEFcPeR5DA5BIWGJSF_S">
+<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-fab.js" crossorigin="anonymous" integrity="sha384-B7VWdNw-6y962PA8OVWDwHb7gz9UrYpgidlxoKTnZyd16Ro6112iETGD4rvXMz-n">
+<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-icon-button.js" crossorigin="anonymous" integrity="sha384-EuZogEUuiBDpcVBeLgk1oB-ewYsONAdDK8MGEylsMq3LMVZafv5QuEG8AEg3Y7Sz">
 <link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-formfield.js" crossorigin="anonymous" integrity="sha384-WUTR1djxiRpz6wk-Cv5AhEzExMfraHRWPM6JKIZ1uR8bceUdn_CRhlSfwOQD7hT1">
-<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/core.js" crossorigin="anonymous" integrity="sha384-RzxWAbiQsoAS4_6U-QNdGkuu1kX27lPhVi-Fsw_dlLktGBJNWBigikIH1kRWja9_"></head>
+<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-circular-progress.js" crossorigin="anonymous" integrity="sha384-iFSFJQWhTTJvYFpf7SbE77MI_gE53UqWDotqiZYgFyu_H4JuSmCzV0fDvhPxNkLf">
+<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-radio.js" crossorigin="anonymous" integrity="sha384-j1EW0ikz3zMv9vY-0_PxXUag98faiIaQ0fSL4yomR0QQjuCyrGVXjTJsmJDVua6t">
+<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-check-list-item.js" crossorigin="anonymous" integrity="sha384-BycUQfmKFVn4_tYAZh8p3v3IoiQGWCMdwVPSVm6z7WFT9Cy0GqL9Oufs_gC17Enx">
+<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-icon.js" crossorigin="anonymous" integrity="sha384-XXvdlRhvtgD5KXesg2ookh4WTIrMIPKPXqLRkiCyuqnWFffUEjO0U4fXIahbSfhY">
+<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-circular-progress-four-color.js" crossorigin="anonymous" integrity="sha384-9tfN4Qpgw7G7stkG2AaXP5qFj2aNaQbOD3fXGTjyABno1xvupQPZ0S30-uWPGNPI">
+<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-linear-progress.js" crossorigin="anonymous" integrity="sha384-2qeLk2keq0V5nvsx1cTM3WMKOTd_qKMswAVDMLm82MFDABthji9RvroR-F5ZUZfE">
+<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-tab.js" crossorigin="anonymous" integrity="sha384-jVIN036SBeTGoTZBlGbys0dEquxjY7c9yO1XGbDBFKCFLoId2ryvrXvQqb0n-qZa">
+<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-checkbox.js" crossorigin="anonymous" integrity="sha384-nK6zOz4PoYL7_jW0HEngo4Mit4tpNxug0IY-qZTs7AZjD6Wy3Aj8TO52ogxMtMoh">
+<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-textarea.js" crossorigin="anonymous" integrity="sha384-_cLcX6vVnhY9-SDyOgdZhDT6ZgJS3XmR8jckfOJJ-o_39kqZIRmqaJCSQJHN4aXe">
+<link rel="modulepreload" href="/snippets/material-yew-6036bff74362aa19/build/mwc-list.js" crossorigin="anonymous" integrity="sha384-Fdnzc4_GefPIPXnIXxYfxcbySJxfVRziwbX5h2nsjPrMPiMDlGtarKG5CPaTik0o"></head>
   <body>
 
 
 <script type="module">
-import init, * as bindings from '/noteapp-frontend-1bde04ac4f1886f0072caef4a803d36fd35b856e9cd03ebb19b0659cbe45bf030003da4cc718f182b6653c194b8e56ce.js';
-init('/noteapp-frontend-1bde04ac4f1886f0072caef4a803d36fd35b856e9cd03ebb19b0659cbe45bf030003da4cc718f182b6653c194b8e56ce_bg.wasm');
+import init, * as bindings from '/noteapp-frontend-c3bd47bf1d421d5631df7e90cf792d95a551774520b86df6863f963f290cb22fcc3a3344af65de1113cf8fda51326aac.js';
+init('/noteapp-frontend-c3bd47bf1d421d5631df7e90cf792d95a551774520b86df6863f963f290cb22fcc3a3344af65de1113cf8fda51326aac_bg.wasm');
 window.wasmBindings = bindings;
 
-</script><script>"use strict";
-
-(function () {
-
-    const address = '{{__TRUNK_ADDRESS__}}';
-    let protocol = '';
-    protocol =
-        protocol
-            ? protocol
-            : window.location.protocol === 'https:'
-                ? 'wss'
-                : 'ws';
-    const url = protocol + '://' + address + '/_trunk/ws';
-
-    class Overlay {
-        constructor() {
-            // create an overlay
-            this._overlay = document.createElement("div");
-            const style = this._overlay.style;
-            style.height = "100vh";
-            style.width = "100vw";
-            style.position = "fixed";
-            style.top = "0";
-            style.left = "0";
-            style.backgroundColor = "rgba(222, 222, 222, 0.5)";
-            style.fontFamily = "sans-serif";
-            // not sure that's the right approach
-            style.zIndex = "1000000";
-            style.backdropFilter = "blur(1rem)";
-
-            const container = document.createElement("div");
-            // center it
-            container.style.position = "absolute";
-            container.style.top = "30%";
-            container.style.left = "15%";
-            container.style.maxWidth = "85%";
-
-            this._title = document.createElement("div");
-            this._title.innerText = "Build failure";
-            this._title.style.paddingBottom = "2rem";
-            this._title.style.fontSize = "2.5rem";
-
-            this._message = document.createElement("div");
-            this._message.style.whiteSpace = "pre-wrap";
-
-            const icon= document.createElement("div");
-            icon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="#dc3545" viewBox="0 0 16 16"><path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>';
-            this._title.prepend(icon);
-
-            container.append(this._title, this._message);
-            this._overlay.append(container);
-
-            this._inject();
-            window.setInterval(() => {
-                this._inject();
-            }, 250);
-        }
-
-        set reason(reason) {
-            this._message.textContent = reason;
-        }
-
-        _inject() {
-            if (!this._overlay.isConnected) {
-                // prepend it
-                document.body?.prepend(this._overlay);
-            }
-        }
-
-    }
-
-    class Client {
-        constructor(url) {
-            this.url = url;
-            this.poll_interval = 5000;
-            this._overlay = null;
-        }
-
-        start() {
-            const ws = new WebSocket(this.url);
-            ws.onmessage = (ev) => {
-                const msg = JSON.parse(ev.data);
-                switch (msg.type) {
-                    case "reload":
-                        this.reload();
-                        break;
-                    case "buildFailure":
-                        this.buildFailure(msg.data)
-                        break;
-                }
-            };
-            ws.onclose = this.onclose;
-        }
-
-        onclose() {
-            window.setTimeout(
-                () => {
-                    // when we successfully reconnect, we'll force a
-                    // reload (since we presumably lost connection to
-                    // trunk due to it being killed, so it will have
-                    // rebuilt on restart)
-                    const ws = new WebSocket(this.url);
-                    ws.onopen = () => window.location.reload();
-                    ws.onclose = this.onclose;
-                },
-                this.poll_interval);
-        }
-
-        reload() {
-            window.location.reload();
-        }
-
-        buildFailure({reason}) {
-            // also log the console
-            console.error("Build failed:", reason);
-
-            console.debug("Overlay", this._overlay);
-
-            if (!this._overlay) {
-                this._overlay = new Overlay();
-            }
-            this._overlay.reason = reason;
-        }
-    }
-
-    new Client(url).start();
-
-})()
 </script></body></html>

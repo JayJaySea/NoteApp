@@ -23,12 +23,18 @@ pub struct UpdateUser {
 }
 
 #[derive(Debug, Serialize, Deserialize, Default, Clone)]
+pub struct UpdatePassword {
+    pub password: String,
+    pub new_password: String,
+}
+
+#[derive(Debug, Serialize, Deserialize, Default, Clone)]
 pub struct LoginUser {
     pub email: String,
     pub password: String,
 }
 
-#[derive(Debug, Serialize, Deserialize, Default, Clone)]
+#[derive(Debug, Serialize, Deserialize, Default, Clone, PartialEq)]
 pub struct Note {
     pub id: Uuid,
     pub label: String,
@@ -43,6 +49,7 @@ pub struct CreateNote {
 
 #[derive(Debug, Serialize, Deserialize, Default, Clone)]
 pub struct UpdateNote {
+    pub id: Uuid,
     pub label: String,
     pub contents: String,
 }
@@ -56,4 +63,10 @@ pub struct Token {
 #[derive(Debug, Serialize, Deserialize, Default, Clone)]
 pub struct Error {
     pub error: String,
+}
+
+
+#[derive(Debug, Serialize, Deserialize, Default, Clone)]
+pub struct AnyPassword {
+    pub password: String,
 }

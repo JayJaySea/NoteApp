@@ -1,4 +1,4 @@
-use api::types::User;
+use api::types::{User, Note};
 use yewdux::store::Store;
 
 pub mod api;

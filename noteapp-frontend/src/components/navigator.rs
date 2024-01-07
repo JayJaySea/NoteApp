@@ -37,7 +37,7 @@ pub fn mat_auth_nav() -> Html {
         Callback::from(move |_: String| navigator.push(&Route::ProfilePage))
     };
 
-    navigator.push(&Route::ProfilePage);
+    navigator.push(&Route::NotesPage);
 
     let go_notes = {
         let navigator = navigator.clone();
@@ -46,8 +46,8 @@ pub fn mat_auth_nav() -> Html {
 
     html! {
         <MatTabBar>
-            <MatTab icon="person" label="Profile" stacked=true oninteracted={go_profile} />
             <MatTab icon="notes" label="Notes" stacked=true  oninteracted={go_notes}/>
+            <MatTab icon="person" label="Profile" stacked=true oninteracted={go_profile} />
         </MatTabBar>
     }
 }
