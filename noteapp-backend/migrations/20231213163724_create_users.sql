@@ -1,11 +1,11 @@
 -- Add migration script here
 
-create table users (
-    id          uuid primary key not null,
-    email       text not null unique,
-    username    text not null unique,
-    password    text not null
-);
+CREATE TABLE users (
+    id          UUID PRIMARY KEY NOT NULL,
+    email       TEXT NOT NULL UNIQUE,
+    username    TEXT NOT NULL UNIQUE,
+    password    TEXT NOT NULL
+)
 
-alter table notes
-add user_id uuid not null references users(id) on delete cascade;
+ALTER TABLE notes
+ADD user_id uuid NOT NULL references users(id) ON DELETE cascade;

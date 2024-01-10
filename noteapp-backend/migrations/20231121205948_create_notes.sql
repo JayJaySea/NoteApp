@@ -1,7 +1,7 @@
 -- Add migration script here
 
-create table notes (
-    id          uuid primary key not null,
-    label       text,
-    contents    text not null
+CREATE TABLE notes (
+    id          UUID PRIMARY KEY NOT NULL,
+    label       TEXT,
+    contents    TEXT NOT NULL
 );

@@ -13,3 +13,23 @@ noteapp-frontend/dist/
 
 # MSVC Windows builds of rustc generate these, which store debugging information
 *.pdb
+
+
+thesis/*.aux
+thesis/*.bit
+thesis/*.blg
+thesis/*.bbl
+thesis/*.lof
+thesis/*.log
+thesis/*.lot
+thesis/*.glo
+thesis/*.glx
+thesis/*.gxg
+thesis/*.gxs
+thesis/*.idx
+thesis/*.ilg
+thesis/*.ind
+thesis/*.out
+thesis/*.url
+thesis/*.svn
+thesis/*.toc
