@@ -82,7 +82,7 @@
 \newcommand{\IdCoauthor}{}  % Jeżeli praca ma tylko jednego autora, to dane drugiego autora zostają puste.
 %%%%%%%%%%
 
-\newcommand{\Supervisor}{Dr hab. inż. Adam Domański}     % dane promotora (bez $\langle$ i $\rangle$)
+\newcommand{\Supervisor}{Dr hab. inż. prof. PŚ Adam Domański}     % dane promotora (bez $\langle$ i $\rangle$)
 \newcommand{\Title}{Serwis do zarządzania notatkami w języku RUST}           % tytuł pracy po polsku
 \newcommand{\TitleAlt}{Note management service in RUST}                     % thesis title in English
 \newcommand{\Program}{Informatyka}            % kierunek studiów  (bez $\langle$ i $\rangle$)
@@ -584,19 +584,15 @@ zaprojektowanie i implementację również strony klienta.
 
 Proces tworzenia kodu języka WebAssembly z przykładowego kodu C:
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \begin{lstlisting}
-class test : public basic
-{
-    public:
-      test (int a);
-      friend std::ostream operator<<(std::ostream & s, 
-                                     const test & t);
-    protected:
-      int _a;  
-      
-};
+#include <stdio.h>
+
+int main() {
+    printf("Hello World\n");
+    return 0;
+}
 \end{lstlisting}
 \caption{Prosty program w języku C}
 \label{fig:pseudokod:listings}
@@ -642,7 +638,7 @@ Oto kilka głównych cech Material Design:
 
 - Używanie geometrycznych kształtów, takich jak okręgi i prostokąty, aby stworzyć spójny i estetyczny wygląd interfejsu.
 
-- Udostępnianie gotowych komponentów interfejsu, takich jak przyciski, pola tekstowe czy karty, aby ułatwić i przyspieszyć proces projektowania.
+- Udostępnianie gotowych komponentów interfejsu, takich jak przyciski, pola tekstowe czy panele do nawigacji, aby ułatwić i przyspieszyć proces projektowania.
 
 - Material Design jest dostosowany do różnych platform, takich jak Android, iOS, a także aplikacji webowych, co pozwala na spójne doświadczenie użytkownika na różnych urządzeniach.
 
@@ -704,7 +700,7 @@ poprzez przypadkowe pozostawienie odblokowanej aplikacji po skorzystaniu z serwi
 \subsection{Zarządzanie notatkami}
 
 Po zalogowaniu użytkownika będzie możliwe zarządzanie przez niego notatkami.
-Inni użytkownicy nie mają możliwości wyświetlenia cudzych notatek, ich zmiana
+Inni użytkownicy nie mają możliwości wyświetlenia cudzych notatek, ich zmiana,
 dodawanie i usuwanie też jest dostępne tylko dla osoby, do której te notatki należą.
 
 \subsection{Architektura oparta na Dockerze}
@@ -722,7 +718,7 @@ Aby rozpocząć korzystanie z aplikacji, użytkownik musi się zarejestrować u�
 przeznaczonej, lub bezpośrednio za pomocą API. Następnie musi się zalogować na utworzone konto.
 Dodatkowo, aplikacja obsługuje następujące czynności związane z zarządzaniem własnym kontem przez użytkownika:
 przeglądanie, modyfikowanie i usuwanie profilu.
-Notatki użytkownika oraze jego dane muszą być jak najlepiej zabezpieczone pod względem prywatności.
+Notatki użytkownika oraz jego dane muszą być jak najlepiej zabezpieczone pod względem prywatności.
 Powinny zostać też wdrożone dodatkowe zabezpieczenia - brak możliwości modyfikacji danych użytkownika
 czy usunięcia profilu bez podania hasła. 
 
@@ -769,6 +765,7 @@ dist = "../noteapp-backend/dist"
 \subsection{Docker}
 
 Platforę oprogramowania Docker wyróżniają następujące cechy:
+
 - Konteneryzacja:
     Docker umożliwia tworzenie, zarządzanie i uruchamianie kontenerów. Kontenery to lekkie, przenośne i samowystarczalne jednostki, które zawierają wszystko, co jest potrzebne do uruchomienia aplikacji, włącznie z kodem, zależnościami, środowiskiem wykonawczym i systemem plików.
 
@@ -914,8 +911,8 @@ Edycja notatki jest przedstawiona na rys. \ref{fig:edycja-notatki}.
 \subsection{Zarządzanie profilem}
 Widok na profil użytkownika można zobaczyć na Rys. \ref{fig:strona-profilu}. 
 Tutaj użytkownik może sprawdzić swoje dane, tutaj również ma możliwość
-zarządzania swoim profilem. Możliwe akcje to edycja profilu (Rys \ref{fig:strona-edycja-profilu}), usunięcie go
-lub wylogowanie się z konta.
+zarządzania swoim profilem. Możliwe akcje to edycja profilu (Rys \ref{fig:strona-edycja-profilu}),
+zmiana hasła, usunięcie profilu lub wylogowanie się z konta.
 
 \begin{figure}[H]
 \centering
@@ -1046,7 +1043,7 @@ przez atakującego dostępu do bazy danych hasła są odpowiednio zabezpieczone.
 \chapter{Specyfikacja wewnętrzna}
 \label{ch:05}
 
-\section{Architektura systemu}
+\section{Architektura systemu - Docker}
 
 Architektura jest oparta na platformie Docker.
 Każdy z poniższych elementów jest oddzielnym kontenerem:
@@ -1060,6 +1057,8 @@ Każdy z poniższych elementów jest oddzielnym kontenerem:
 - backend - zawiera właściwą aplikację strony serwera (API), oraz wygenerowane pliki strony klienta 
 
 - swagger - system pozwalający na dokumentację i testowanie API
+
+\section{Architektura systemu - implementacja}
 
 Od strony implementacji, projekt jest podzielony na dwie części:
 
@@ -1103,7 +1102,7 @@ Strona frameworku: \url{https://yew.rs/}.
 
 \subsection{Axum}
 
-Axum to framework pozwalający na tworzenie strony klienta aplikacji internetowej.
+Axum to framework pozwalający na tworzenie strony serwera aplikacji internetowej.
 Jego głównymi założeniami są ergonomia i modularność. Pozwala w łatwy sposób 
 tworzyć API aplikacji, oraz kotrolować interakcję z użytkownikiem zarówno na niskim,
 jak i wysokim poziomie abstrakcji. Framework wymaga użycia asynchroniczności podczas
